@@ -5,16 +5,19 @@ import io.lettuce.core.RedisFuture;
 import io.lettuce.core.RedisURI;
 import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.async.RedisAsyncCommands;
+import io.lettuce.core.api.reactive.RedisStringReactiveCommands;
 import io.lettuce.core.api.sync.RedisCommands;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
 public class UseLettuce {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
 //        connectWithRedisURI1();
 //        connectWithRedisURI2();
-        connectWithRedisClient();
+//        connectWithRedisClient();
+        connectAsynWithRedisClient();
     }
 
     public static void connectWithRedisURI1() throws ExecutionException, InterruptedException {
@@ -22,11 +25,10 @@ public class UseLettuce {
         redisURI.setHost("10.1.51.19");
         redisURI.setPort(6379);
         RedisClient redisClient = RedisClient.create(redisURI);
-        syncTest(redisClient);
+        syncTest(redisClient.connect());
     }
 
-    private static void syncTest(RedisClient redisClient) {
-        StatefulRedisConnection<String, String> connection = redisClient.connect();
+    private static void syncTest(StatefulRedisConnection<String, String> connection) {
         RedisCommands<String, String> redisCommands = connection.sync();
         String value = redisCommands.get("100848");
         System.out.println(value);
@@ -36,18 +38,35 @@ public class UseLettuce {
         record.entrySet();
     }
 
-    private static void asyncTest(RedisClient redisClient) {
-        
+    private static void asyncTest(StatefulRedisConnection<String, String> connection) throws ExecutionException, InterruptedException {
+        RedisAsyncCommands<String, String> asyncCommands = connection.async();
+        RedisFuture<String> result = asyncCommands.get("100848");
+//        RedisStringReactiveCommands<String, String> reactiveCommands = connection.reactive();
+        asyncCommands.lpush("tasks","firstTask");
+        asyncCommands.lpush("tasks","secondTask");
+        RedisFuture<String> redisFuture = asyncCommands.rpop("tasks");
+        String nextTask = redisFuture.get();
+        System.out.println(nextTask);
+        asyncCommands.sadd("pets", "dog");
+        asyncCommands.sadd("pets", "cat");
+        asyncCommands.sadd("pets", "cat");
+        RedisFuture<Set<String>> pets = asyncCommands.smembers("nicknames");
+        RedisFuture<Boolean> exists = asyncCommands.sismember("pets", "dog");
     }
 
     public static void connectWithRedisURI2() {
         RedisURI redisURI = RedisURI.Builder.redis("10.1.51.19", 6379).build();
         RedisClient redisClient = RedisClient.create(redisURI);
-        syncTest(redisClient);
+        syncTest(redisClient.connect());
     }
 
     public static void connectWithRedisClient() {
         RedisClient redisClient = RedisClient.create("redis://10.1.51.19:6379");
-        syncTest(redisClient);
+        syncTest(redisClient.connect());
+    }
+
+    public static void connectAsynWithRedisClient() throws ExecutionException, InterruptedException {
+        RedisClient redisClient = RedisClient.create("redis://10.1.51.19:6379");
+        asyncTest(redisClient.connect());
     }
 }
