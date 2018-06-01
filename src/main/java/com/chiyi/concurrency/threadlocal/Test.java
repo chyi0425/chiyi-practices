@@ -1,8 +1,18 @@
 package com.chiyi.concurrency.threadlocal;
 
 public class Test {
-    ThreadLocal<Long> longLocal = new ThreadLocal<Long>();
-    ThreadLocal<String> stringLocal = new ThreadLocal<String>();
+    ThreadLocal<Long> longLocal = new ThreadLocal<Long>(){
+        @Override
+        protected Long initialValue() {
+            return Thread.currentThread().getId();
+        }
+    };
+    ThreadLocal<String> stringLocal = new ThreadLocal<String>(){
+        @Override
+        protected String initialValue() {
+            return Thread.currentThread().getName();
+        }
+    };
 
     public void set(){
         longLocal.set(Thread.currentThread().getId());
