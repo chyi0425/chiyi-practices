@@ -1,6 +1,6 @@
 package com.chiyi.generics;
 
-import org.assertj.core.util.Lists;
+//import org.assertj.core.util.Lists;
 
 import java.util.List;
 
@@ -12,8 +12,8 @@ import java.util.List;
 public class PECSTest {
 
     public static void main(String[] args) {
-        List<? extends String> names = Lists.newArrayList("yiifaa");
-        List<String> allNames = Lists.newArrayList("yiifee");
+//        List<? extends String> names = Lists.newArrayList("yiifaa");
+//        List<String> allNames = Lists.newArrayList("yiifee");
 //        names.add("");
     }
 
