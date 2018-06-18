@@ -2,8 +2,7 @@ package com.chiyi.concurrency.threadpool;
 
 import java.util.LinkedList;
 import java.util.List;
-
-//https://www.cnblogs.com/wxwall/p/7050698.html
+// https://blog.csdn.net/touch_2011/article/details/6914468
 public class MyThreadPoolV2 {
     private static int workerNum = 5;
     private WorkThread[] workThreads;
