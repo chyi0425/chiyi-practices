@@ -30,7 +30,6 @@ public class CountDownLatchTest {
                 }
             });
         }
-
         countDownLatch.await();
         System.out.printf("%s时全部任务都完成，执行时合并计算。\n",new Date().toString());
         service.shutdown();

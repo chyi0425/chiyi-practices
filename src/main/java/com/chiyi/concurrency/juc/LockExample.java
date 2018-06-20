@@ -35,6 +35,12 @@ public class LockExample {
         ExecutorService executorService = Executors.newCachedThreadPool();
         executorService.execute(()-> lockExample.func());
         executorService.execute(()-> lockExample.func());
-
+        executorService.execute(()->{
+            lockExample.lock.lock();
+            lockExample.condition.signalAll();
+            lockExample.condition.signalAll();
+            lockExample.lock.unlock();
+        });
+        executorService.shutdown();
     }
 }
