@@ -1,4 +1,4 @@
-package com.chiyi.nio;
+package com.chiyi.io.nio;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
