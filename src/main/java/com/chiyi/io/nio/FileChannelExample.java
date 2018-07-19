@@ -64,14 +64,14 @@ public class FileChannelExample {
         while (bytesRead!=-1){
             System.out.println("Read "+bytesRead);
 
-            // make buffer ready for read
+            // make buffer ready for read(write model)
             buf.flip();
 
             while (buf.hasRemaining()){
                 System.out.print((char)buf.get());
             }
 
-            // make buffer ready for writing
+            // make buffer ready for writing(read model)
             buf.clear();
             bytesRead = inChannel.read(buf);
         }
