@@ -1,19 +1,21 @@
 package com.chiyi.concurrency.threadpool;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 
 public class Test {
     private ConcurrentLinkedQueue<String> queue = new ConcurrentLinkedQueue<String>();
     private CountDownLatch latch = new CountDownLatch(10000);
     ExecutorService es = Executors.newFixedThreadPool(4);
     public static void main(String[] args) {
-        Test test001 = new Test();
-        long timeStart = System.currentTimeMillis();
-        test001.start();
-        System.out.println(System.currentTimeMillis()-timeStart);
+//        Test test001 = new Test();
+//        long timeStart = System.currentTimeMillis();
+//        test001.start();
+//        System.out.println(System.currentTimeMillis()-timeStart);
+        ConcurrentHashMap<String,String> concurrentHashMap = new ConcurrentHashMap<>(2);
+        for(int i=0;i<1000;i++){
+            concurrentHashMap.put("test"+String.valueOf(i),String.valueOf(i));
+        }
+        concurrentHashMap.put("test","test");
     }
 
     public void start(){
