@@ -12,7 +12,7 @@ import java.text.MessageFormat;
  * @date 2018/7/20.
  */
 
-public class NIOServerSocketChannel {
+public class NIOServerSocketChannelTest {
     public static void main(String[] args) throws IOException {
         ServerSocketChannel serverChannel = ServerSocketChannel.open();
         // set is blocking
