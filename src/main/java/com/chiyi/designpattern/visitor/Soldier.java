@@ -2,7 +2,8 @@ package com.chiyi.designpattern.visitor;
 
 /**
  * @author chiyi
+ * @date 2018/9/3.
+ * Soldier
  */
-public interface Visitable {
-    void accept(Visitor visitor);
+public class Soldier {
 }
