@@ -1,23 +1,21 @@
 package com.chiyi.designpattern.visitor;
 
 /**
- * @author chiyi
- * @date 2018/9/3.
- * Soldier
+ * commander
  */
-public class Soldier extends Unit{
-    public Soldier(Unit... children){
+public class Commander extends Unit {
+    public Commander(Unit... children) {
         super(children);
     }
 
     @Override
     public void accept(UnitVisitor visitor) {
-        visitor.visitSoldier(this);
+        visitor.visitCommander(this);
         super.accept(visitor);
     }
 
     @Override
     public String toString() {
-        return "solider";
+        return "commander";
     }
 }

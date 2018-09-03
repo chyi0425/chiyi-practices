@@ -5,5 +5,9 @@ package com.chiyi.designpattern.visitor;
  *
  */
 public interface UnitVisitor {
-    void visitSoldier();
+    void visitSoldier(Soldier soldier);
+
+    void visitSergeant(Sergeant sergeant);
+
+    void visitCommander(Commander commander);
 }
