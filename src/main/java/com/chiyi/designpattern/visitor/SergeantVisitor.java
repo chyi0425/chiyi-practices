@@ -14,6 +14,7 @@ public class SergeantVisitor implements UnitVisitor {
     @Override
     public void visitSergeant(Sergeant sergeant) {
         LOGGER.info("Hello {}", sergeant);
+        System.out.println("Hello " + sergeant);
     }
 
     @Override

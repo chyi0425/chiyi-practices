@@ -19,6 +19,7 @@ public class CommanderVisitor implements UnitVisitor {
 
     @Override
     public void visitCommander(Commander commander) {
-        LOGGER.info("Good to see you {}",commander);
+        LOGGER.info("Good to see you {}", commander);
+        System.out.println("Good to see you " + commander);
     }
 }

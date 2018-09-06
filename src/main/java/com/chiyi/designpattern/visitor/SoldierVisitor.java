@@ -9,6 +9,7 @@ public class SoldierVisitor implements UnitVisitor {
     @Override
     public void visitSoldier(Soldier soldier) {
         LOGGER.info("Greetings {}", soldier);
+        System.out.println("Greetings " + soldier);
     }
 
     @Override

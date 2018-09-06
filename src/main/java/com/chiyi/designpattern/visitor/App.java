@@ -1,5 +1,7 @@
 package com.chiyi.designpattern.visitor;
 
+import java.text.DecimalFormat;
+
 /**
  * Visitor pattern defines mechanism to apply operations on nodes in hierarchy. New operations can
  * be added without altering the node interface.
@@ -12,13 +14,26 @@ public class App {
 
     /**
      * Program entry point
+     *
      * @param args command line args
      */
     public static void main(String[] args) {
-        Commander commander = new Commander(new Sergeant(new Soldier(),new Soldier(),new Soldier()), new Sergeant(
+        Commander commander = new Commander(new Sergeant(new Soldier(), new Soldier(), new Soldier()), new Sergeant(
                 new Soldier(), new Soldier(), new Soldier()));
         commander.accept(new SoldierVisitor());
         commander.accept(new SergeantVisitor());
         commander.accept(new CommanderVisitor());
+        System.out.println(formatTest(1));//001
+        System.out.println(formatTest(2));//010
+        System.out.println(formatTest(3));
+        System.out.println(formatTest(4));//100
+        System.out.println(formatTest(5));
+        System.out.println(formatTest(6));
+        System.out.println(formatTest(7));
+    }
+
+    private static String formatTest(int value){
+        String str = Integer.toBinaryString(value);
+        return  (String.format("%03d",Integer.valueOf(str)));
     }
 }
