@@ -30,6 +30,8 @@ public class App {
         System.out.println(formatTest(5));
         System.out.println(formatTest(6));
         System.out.println(formatTest(7));
+
+        System.out.println("我啊我,我KLKLJJ".toLowerCase());
     }
 
     private static String formatTest(int value){
