@@ -20,6 +20,7 @@ public class ShellTest {
 
     @Test
     public void test() {
+        System.out.println(Integer.getInteger("123"));
         StringBuilder  s1= new StringBuilder("good");
         StringBuilder  s2= new StringBuilder("bad ");
         exchange(s1,s2);
