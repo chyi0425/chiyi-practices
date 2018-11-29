@@ -1,0 +1,5 @@
+#English implementation
+com.chiyi.spi.impl.EnglishDemoServiceImpl
+
+#Chinese implementation
+com.chiyi.spi.impl.ChineseDemoServiceImpl
