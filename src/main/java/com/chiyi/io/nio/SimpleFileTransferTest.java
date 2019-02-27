@@ -1,8 +1,13 @@
 package com.chiyi.io.nio;
 
+
 import java.io.*;
 import java.nio.ByteBuffer;
+import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
+import java.nio.channels.Pipe;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 /**
  * @author chiyi
@@ -67,7 +72,67 @@ public class SimpleFileTransferTest {
 
         long timeNio = simpleFileTransferTest.transferFileWithNIO(sourse, nio);
         System.out.println(timeNio + "：NIO时间");
+    }
 
+    // 使用直接缓冲区完成文件的复制(内存映射文件)
+    public static void test2() throws IOException {
+        FileChannel inChannel = FileChannel.open(Paths.get("1.jpg"), StandardOpenOption.READ);
+        FileChannel outChannel = FileChannel.open(Paths.get("2.jpg"), StandardOpenOption.WRITE, StandardOpenOption.CREATE_NEW);
 
+        // 内存映射文件
+        MappedByteBuffer inMappedBuf = inChannel.map(FileChannel.MapMode.READ_ONLY, 0, inChannel.size());
+        MappedByteBuffer outMappedBuf = outChannel.map(FileChannel.MapMode.READ_WRITE, 0, inChannel.size());
+
+        // 直接对缓冲区进行数据的读写操作
+        byte[] dst = new byte[inMappedBuf.limit()];
+        inMappedBuf.get(dst);
+        outMappedBuf.put(dst);
+    }
+
+    public static void scatterGatterTest() throws IOException {
+        RandomAccessFile raf1 = new RandomAccessFile("1.txt", "r");
+        FileChannel channel1 = raf1.getChannel();
+
+        ByteBuffer buf1 = ByteBuffer.allocate(100);
+        ByteBuffer buf2 = ByteBuffer.allocate(1024);
+
+        ByteBuffer[] bufs = {buf1, buf2};
+
+        channel1.read(bufs);
+
+        for (ByteBuffer buffer : bufs) {
+            buffer.flip();
+        }
+
+        System.out.println(new String(bufs[0].array(), 0, bufs[0].limit()));
+        System.out.println(new String(bufs[1].array(), 0, bufs[1].limit()));
+
+        // 聚集写入
+        RandomAccessFile raf2 = new RandomAccessFile("2.txt", "rw");
+        FileChannel channel2 = raf2.getChannel();
+
+        channel2.write(bufs);
+    }
+
+    public static void pipeTest() throws IOException {
+        // 1. 获取管道
+        Pipe pipe = Pipe.open();
+
+        // 2. 将缓冲区的数据写入到管道
+        ByteBuffer buf = ByteBuffer.allocate(1024);
+
+        Pipe.SinkChannel sinkChannel = pipe.sink();
+
+        buf.put("通过单向管道发送数据".getBytes());
+        buf.flip();
+
+        // 3. 读取缓冲区的数据
+        Pipe.SourceChannel sourceChannel = pipe.source();
+        buf.flip();
+        int len = sourceChannel.read(buf);
+        System.out.println(new String(buf.array(),0,len));
+
+        sourceChannel.close();
+        sinkChannel.close();
     }
 }
