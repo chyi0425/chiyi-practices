@@ -51,4 +51,16 @@ public class Chapter01 {
 
         return articleId;
     }
+
+    public static void main(String[] args) {
+        Jedis jedis = new Jedis("10.1.51.19",6379);
+        jedis.zincrby("201903_star_anchor_month#2#62",3,"20169853#77591992");
+        jedis.zincrby("201903_star_anchor_month#2#62",8,"20169853#77591992");
+        jedis.zrangeWithScores("201903_star_anchor_month#2#62",0,-1);
+    }
+    /**
+     * 197. Rising Temperature
+     * select b.Id from Weather a right join Weather b on b.RecordDate= DATE_ADD(a.RecordDate, INTERVAL 1 DAY)
+     where (b.Temperature-a.Temperature)>0
+     */
 }
