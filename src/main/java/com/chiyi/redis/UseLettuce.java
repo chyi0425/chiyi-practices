@@ -5,7 +5,6 @@ import io.lettuce.core.RedisFuture;
 import io.lettuce.core.RedisURI;
 import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.async.RedisAsyncCommands;
-import io.lettuce.core.api.reactive.RedisStringReactiveCommands;
 import io.lettuce.core.api.sync.RedisCommands;
 
 import java.util.Map;
@@ -22,8 +21,9 @@ public class UseLettuce {
 
     public static void connectWithRedisURI1() throws ExecutionException, InterruptedException {
         RedisURI redisURI = new RedisURI();
-        redisURI.setHost("10.1.51.19");
+        redisURI.setHost("10.117.21.32");
         redisURI.setPort(6379);
+        redisURI.setPassword("1234");
         RedisClient redisClient = RedisClient.create(redisURI);
         syncTest(redisClient.connect());
     }
@@ -66,7 +66,8 @@ public class UseLettuce {
     }
 
     public static void connectAsynWithRedisClient() throws ExecutionException, InterruptedException {
-        RedisClient redisClient = RedisClient.create("redis://10.1.51.19:6379");
+        RedisURI redisURI = RedisURI.Builder.redis("10.117.21.32",6379).withPassword("1234").build();
+        RedisClient redisClient = RedisClient.create(redisURI);
         asyncTest(redisClient.connect());
     }
 }

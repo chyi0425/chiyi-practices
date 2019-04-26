@@ -8,7 +8,6 @@ import io.netty.channel.ChannelHandlerContext;
  * @date 2019/3/25.
  */
 public class TcpServerHandler extends ChannelHandlerAdapter {
-    @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         String body = (String) msg;
         System.out.println("request content:\n" + body);
