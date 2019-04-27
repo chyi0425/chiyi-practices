@@ -7,14 +7,8 @@ package com.chiyi.foundation;
 public class StringIntern {
 
     public static void main(String[] args) {
-        t1();
-        t2();
-        System.out.println("**************");
-        t3();
-        System.out.println("**************");
-        t4();
-        System.out.println("**************");
-        t5();
+
+        System.out.println(10.0/3*3);
     }
 
     public static void t1() {
