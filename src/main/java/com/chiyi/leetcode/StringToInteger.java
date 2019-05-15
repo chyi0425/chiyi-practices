@@ -27,15 +27,12 @@ public class StringToInteger {
                 break;
             }
             tmp = tmp * 10 + (c-'0');
+            if(tmp >Integer.MAX_VALUE){
+                return positive?Integer.MAX_VALUE:Integer.MIN_VALUE;
+            }
         }
         if (!positive) {
             tmp = -tmp;
-        }
-        if (tmp > Integer.MAX_VALUE) {
-            return Integer.MAX_VALUE;
-        }
-        if (tmp < Integer.MIN_VALUE) {
-            return Integer.MIN_VALUE;
         }
         return (int) tmp;
     }
