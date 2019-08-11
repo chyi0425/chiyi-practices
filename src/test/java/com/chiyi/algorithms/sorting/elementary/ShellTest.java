@@ -2,8 +2,6 @@ package com.chiyi.algorithms.sorting.elementary;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class ShellTest {
 
     @Test
@@ -23,30 +21,30 @@ public class ShellTest {
         System.out.println(Integer.getInteger("123"));
         StringBuilder  s1= new StringBuilder("good");
         StringBuilder  s2= new StringBuilder("bad ");
-        exchange(s1,s2);
+        exchangeSB(s1,s2);
         System.out.println(s1.toString());
         System.out.println(s2.toString());
     }
 
-    public void exchange(StringBuilder s1,StringBuilder s2){
+    public static void exchangeSB(StringBuilder s1, StringBuilder s2){
         s1 = s2;
         s2 = new StringBuilder();
         s1.append(" world");
-        s2.append(" world");
+        s2.append(" world!");
     }
 
     @Test
     public void test1() {
         String  s1= new String("good");
         String  s2= new String("bad ");
-        exchange1(s1,s2);
+        exchangeString(s1,s2);
         System.out.println(s1.toString());
         System.out.println(s2.toString());
 
 
     }
 
-    public void exchange1(String s1,String s2){
+    public static void exchangeString(String s1, String s2){
         s1 = s2;
         s2 = new String();
         s1 +=" world";
@@ -70,6 +68,20 @@ public class ShellTest {
         s2 = 3;
         s1 += 1;
         s2 += 1;
+    }
+
+    public static void main(String[] args) {
+        String  s1= new String("good");
+        String  s2= new String("bad ");
+        exchangeString(s1,s2);
+        System.out.println(s1.toString());
+        System.out.println(s2.toString());
+
+        StringBuilder  stringBuilder1= new StringBuilder("good");
+        StringBuilder  stringBuilder2= new StringBuilder("bad ");
+        exchangeSB(stringBuilder1,stringBuilder2);
+        System.out.println(stringBuilder1.toString());
+        System.out.println(stringBuilder2.toString());
     }
 
 
