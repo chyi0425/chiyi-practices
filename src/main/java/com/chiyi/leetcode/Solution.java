@@ -49,24 +49,24 @@ public class Solution {
             x = x / 10;
 //            -2147483648
             // if result*10+pop > INT_MAX (2147483647) result>= INT_MAX/10
-            if ((result > Integer.MAX_VALUE/10|| (result == Integer.MAX_VALUE/10 && pop > 7)) ||
-                    (result < Integer.MIN_VALUE/10 || (result == Integer.MIN_VALUE/10 && pop < -8))) {
+            if ((result > Integer.MAX_VALUE / 10 || (result == Integer.MAX_VALUE / 10 && pop > 7)) ||
+                    (result < Integer.MIN_VALUE / 10 || (result == Integer.MIN_VALUE / 10 && pop < -8))) {
                 return 0;
             }
             result = result * 10 + pop;
         }
         return result;
     }
-    
-    
-   /**
+
+
+    /**
      * 206
      * reverse a singly likned list.
      *
-     * @param x
+     * @param head
      * @return
      */
-        public ListNode reverseList(ListNode head) {
+    public ListNode reverseList(ListNode head) {
         ListNode prev = null;
         ListNode curr = head;
         while (curr != null) {
@@ -87,8 +87,8 @@ public class Solution {
         head.next = null;
         return p;
     }
-    
-     /**
+
+    /**
      * 9
      * determine whether an integer is a palindrome.An integer is a palindrome when it reads the same backward as forward.
      *
@@ -112,6 +112,7 @@ public class Solution {
      * whitespace and initial word order.
      * Input: "Let's take Leetcode contest"
      * Output: "s'teL ekat edoCteeL tsetnoc"
+     *
      * @param s
      * @return
      */
@@ -126,7 +127,7 @@ public class Solution {
                 while (!stack.isEmpty()) {
                     sb.append(stack.pop());
                 }
-                if(stack.isEmpty() && sb.charAt(sb.length() - 1) != ' '){
+                if (stack.isEmpty() && sb.charAt(sb.length() - 1) != ' ') {
                     sb.append(' ');
                 }
             }
@@ -135,6 +136,41 @@ public class Solution {
             sb.append(stack.pop());
         }
         return sb.toString().trim();
+    }
+
+    /**
+     * 747 Largest Number At Least Twice of Others
+     * In a given integer array nums,there is always exactly one largest element.
+     * Find whether the largest element in the array is at least twice as much as every other number in the array.
+     * if it is,return the index of the largest element,otherwise return -1.
+     *
+     * @param nums
+     * @return
+     */
+    public int dominantIndex(int[] nums) {
+        if (nums.length == 0) {
+            return -1;
+        }
+        if (nums.length == 1) {
+            return 0;
+        }
+        int maxIndex = 0;
+        boolean flag = true;
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[maxIndex] > nums[i]) {
+                if (flag) {
+                    flag = nums[maxIndex] >= 2 * nums[i];
+                }
+            } else {
+                flag = nums[i] >= 2 * nums[maxIndex];
+                maxIndex = i;
+            }
+        }
+        if (!flag){
+            return -1;
+        }else {
+            return maxIndex;
+        }
     }
 
 }
