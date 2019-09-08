@@ -2,6 +2,14 @@ package com.chiyi.foundation.rbtree;
 
 import java.util.concurrent.atomic.AtomicLong;
 
+/**
+ * 1. Each node is either red or black
+ * 2. The root is black.
+ * 3. All leaves(NIL) are black
+ * 4. If a node is red, then both its children are black.
+ * 5. Every path from a given node to any of its descendant NIL nodes contains the same number of black .
+ * @param <T>
+ */
 public class RBTree<T extends Comparable<T>> {
     private final RBTreeNode<T> root;
 
@@ -61,11 +69,62 @@ public class RBTree<T extends Comparable<T>> {
         return addNode(t);
     }
 
+    /**
+     * find the value by give value(include key, key used for search,.
+     * other field is not used,@see compare method). if this value not exist return null
+     *
+     * @param value
+     * @return
+     */
     public T find(T value) {
         RBTreeNode<T> dataRoot = getRoot();
         while (dataRoot != null) {
-
+            int cmp = dataRoot.getValue().compareTo(value);
+            if (cmp < 0) {
+                dataRoot = dataRoot.getRight();
+            } else if (cmp > 0) {
+                dataRoot = dataRoot.getLeft();
+            } else {
+                return dataRoot.getValue();
+            }
         }
+        return null;
+    }
+
+    /**
+     * remove the node by given value, if this value not exists in tree return null
+     *
+     * @param value include search key
+     * @return the value contain in the removed node
+     */
+    public T remove(T value) {
+        RBTreeNode<T> dataRoot = getRoot();
+        RBTreeNode<T> parent = root;
+
+        while (dataRoot != null) {
+            int cmp = dataRoot.getValue().compareTo(value);
+            if (cmp < 0) {
+                parent = dataRoot;
+                dataRoot = dataRoot.getRight();
+            } else if (cmp > 0) {
+                parent = dataRoot;
+                dataRoot = dataRoot.getLeft();
+            } else {
+                if (dataRoot.getRight() != null) {
+                    RBTreeNode<T> min = removeMin(dataRoot.getRight());
+                    // x used for fix color balance.
+                    RBTreeNode<T> x = min.getRight() == null ? min.getParent() : min.getRight();
+                    boolean isParent = min.getRight() == null;
+
+                    min.setLeft(dataRoot.getLeft());
+
+                }
+            }
+        }
+    }
+
+    private RBTreeNode<T> removeMin(RBTreeNode<T> right) {
+        return null;
     }
 
     private T addNode(RBTreeNode<T> t) {
