@@ -123,7 +123,17 @@ public class RBTree<T extends Comparable<T>> {
         }
     }
 
-    private RBTreeNode<T> removeMin(RBTreeNode<T> right) {
+    /**
+     * find the successor node.
+     * @param node current node's right node
+     * @return
+     */
+    private RBTreeNode<T> removeMin(RBTreeNode<T> node) {
+        // find the min code
+        RBTreeNode<T> parent = node;
+        while (node!=null&&node.getLeft()!=null){
+            parent = node;
+        }
         return null;
     }
 
