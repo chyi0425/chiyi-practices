@@ -1,5 +1,7 @@
 package com.chiyi.jvm.memory;
 
+import org.openjdk.jol.vm.VM;
+
 /**
  * @author chiyi
  * 1、虚拟机栈：每个线程有一个私有的栈，随着线程的创建而创建。
@@ -20,7 +22,8 @@ public class StackErrorMock {
     public static void main(String[] args) {
         StackErrorMock stackErrorMock = new StackErrorMock();
         try{
-            stackErrorMock.call();
+//            stackErrorMock.call();
+            System.out.println(VM.current().details());
         }catch (Throwable e){
             System.out.println("Stack deep : "+index);
             e.printStackTrace();
