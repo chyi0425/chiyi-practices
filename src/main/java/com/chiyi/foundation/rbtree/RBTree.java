@@ -121,6 +121,7 @@ public class RBTree<T extends Comparable<T>> {
                 }
             }
         }
+        return null;
     }
 
     /**
