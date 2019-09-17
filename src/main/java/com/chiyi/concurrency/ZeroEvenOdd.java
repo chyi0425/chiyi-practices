@@ -3,6 +3,10 @@ package com.chiyi.concurrency;
 import java.util.concurrent.Semaphore;
 import java.util.function.IntConsumer;
 
+/**
+ * @author chiyi
+ * @date 2019/8/29.
+ */
 public class ZeroEvenOdd {
     private Semaphore semaphore0 = new Semaphore(1);
     private Semaphore semaphoreOdd = new Semaphore(0);
@@ -15,6 +19,11 @@ public class ZeroEvenOdd {
 
     // printNumber.accept(x) outputs "x", where x is an integer.
     public void zero(IntConsumer printNumber) throws InterruptedException {
+    }
+
+
+    public void odd(IntConsumer printNumber) throws InterruptedException {
+
         for (int i = 1; i < n; i++) {
             semaphore0.acquire();
             printNumber.accept(0);
@@ -34,11 +43,5 @@ public class ZeroEvenOdd {
         }
     }
 
-    public void odd(IntConsumer printNumber) throws InterruptedException {
-        for (int i = 1; i <= n; i += 2) {
-            semaphoreOdd.acquire();
-            printNumber.accept(i);
-            semaphore0.release();
-        }
-    }
+
 }

@@ -9,6 +9,10 @@ import redis.clients.jedis.Jedis;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author chiyi
+ * @date 2019/5/10.
+ */
 @BenchmarkMode(Mode.Throughput)
 @Warmup(iterations = 1)
 @Threads(100)
@@ -17,16 +21,19 @@ import java.util.concurrent.TimeUnit;
 public class JedisJMH {
     private static final int LOOP = 100;
     private Jedis jedis;
+
     @Setup
     public void setup() {
-        jedis = new Jedis("127.0.0.1", 6379);
+        jedis = new Jedis("10.117.21.32", 6379);
     }
+
     @Benchmark
     public void get() {
         for (int i = 0; i < LOOP; ++i) {
             jedis.get("a");
         }
     }
+
 
     public static void main(String[] args) throws RunnerException {
         Options opt = new OptionsBuilder().include(JedisJMH.class.getSimpleName()).forks(1).warmupIterations(5).measurementIterations(5).build();

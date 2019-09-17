@@ -15,6 +15,11 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author chiyi
+ * @date 2019/5/10.
+ */
+
 
 @BenchmarkMode(Mode.Throughput)
 @Warmup(iterations = 1)
@@ -25,11 +30,13 @@ public class LettuceJMH {
 
     private static final int LOOP = 1;
     private StatefulRedisConnection<String, String> connection;
+
     @Setup
     public void setup() {
         RedisClient client = RedisClient.create("redis://localhost");
         connection = client.connect();
     }
+
     @Benchmark
     public void get() throws ExecutionException, InterruptedException {
         RedisAsyncCommands<String, String> commands = connection.async();
@@ -49,10 +56,8 @@ public class LettuceJMH {
     }
 
     public static void main(String[] args) throws RunnerException {
-        Options opt = new OptionsBuilder().include(LettuceJMH.class.getSimpleName()).forks(1).warmupIterations(5).measurementIterations(5).build();
-
-        new Runner(opt).run();
-//        Benchmark        Mode  Cnt   Score   Error   Units
-//        LettuceJMH.get  thrpt    5  31.978 ± 0.739  ops/ms
+        Options options = new OptionsBuilder().include(LettuceJMH.class.getSimpleName()).forks(1).build();
+        new Runner(options).run();
     }
 }
+
