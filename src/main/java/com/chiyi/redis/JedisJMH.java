@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
  * @date 2019/5/10.
  */
 @BenchmarkMode(Mode.Throughput)
-@Warmup
+@Warmup(iterations = 1)
 @Threads(100)
 @State(Scope.Thread)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
@@ -28,7 +28,7 @@ public class JedisJMH {
     }
 
     @Benchmark
-    public void jedisGet() {
+    public void get() {
         for (int i = 0; i < LOOP; ++i) {
             jedis.get("a");
         }
@@ -36,7 +36,11 @@ public class JedisJMH {
 
 
     public static void main(String[] args) throws RunnerException {
-        Options options = new OptionsBuilder().include(JedisJMH.class.getSimpleName()).forks(1).build();
-        new Runner(options).run();
+        Options opt = new OptionsBuilder().include(JedisJMH.class.getSimpleName()).forks(1).warmupIterations(5).measurementIterations(5).build();
+
+        new Runner(opt).run();
+//        Benchmark      Mode  Cnt   Score   Error   Units
+//        JedisJMH.get  thrpt    5  43.182 ± 3.361  ops/ms
+
     }
 }
