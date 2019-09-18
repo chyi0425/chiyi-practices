@@ -1,5 +1,6 @@
 package com.chiyi.algorithms.sorting.elementary;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 public class ShellTest {
@@ -34,7 +35,7 @@ public class ShellTest {
         t2.start();
 
         Thread.sleep(100); // 确保 t2 run已经得到执行
-        assertTrue(t2.getState().equals(Thread.State.BLOCKED));
+        Assert.assertTrue(t2.getState().equals(Thread.State.BLOCKED));
     }
 
     @Test

@@ -24,16 +24,17 @@ import java.util.concurrent.TimeUnit;
 @BenchmarkMode(Mode.Throughput)
 @Warmup(iterations = 1)
 @Threads(100)
-@State(Scope.Thread)
+@State(Scope.Benchmark)
+@Measurement(iterations = 2, time = 600, timeUnit = TimeUnit.MILLISECONDS)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 public class LettuceJMH {
 
-    private static final int LOOP = 1;
+    private static final int LOOP = 100;
     private StatefulRedisConnection<String, String> connection;
 
     @Setup
     public void setup() {
-        RedisClient client = RedisClient.create("redis://localhost");
+        RedisClient client = RedisClient.create("redis://10.10.10.230");
         connection = client.connect();
     }
 
@@ -56,7 +57,7 @@ public class LettuceJMH {
     }
 
     public static void main(String[] args) throws RunnerException {
-        Options options = new OptionsBuilder().include(LettuceJMH.class.getSimpleName()).forks(1).build();
+        Options options = new OptionsBuilder().include(LettuceJMH.class.getSimpleName()).forks(1).warmupIterations(5).measurementIterations(5).build();
         new Runner(options).run();
     }
 }

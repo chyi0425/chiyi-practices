@@ -17,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 @Warmup(iterations = 1)
 @Threads(100)
 @State(Scope.Thread)
+@Measurement(iterations = 2, time = 600, timeUnit = TimeUnit.MILLISECONDS)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 public class JedisJMH {
     private static final int LOOP = 100;
@@ -24,7 +25,7 @@ public class JedisJMH {
 
     @Setup
     public void setup() {
-        jedis = new Jedis("10.117.21.32", 6379);
+        jedis = new Jedis("10.10.10.230", 6379);
     }
 
     @Benchmark
