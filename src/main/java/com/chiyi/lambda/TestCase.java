@@ -10,5 +10,8 @@ public class TestCase {
                 new Student("红发",40,180),
                 new Student("白胡子",50,185)).collect(Collectors.toList());
         System.out.println(studentList);
+
+        List<Student> list = studentList.stream().filter(stu -> stu.getStature()<180).collect(Collectors.toList());
+        System.out.println(list);
     }
 }
