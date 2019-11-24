@@ -58,4 +58,10 @@ public class OrderIdGenerateTest {
             return true;
         }
     }
+
+    @Test
+    public void testStringLong(){
+        Long a = 231231232131313L;
+        System.out.println(a);
+    }
 }
