@@ -1,9 +1,13 @@
 package com.chiyi.lambda;
 
+import java.util.List;
+
 public class Student {
     private String name;
     private int age;
     private int stature;
+
+    private List<SpecialityEnum> specialities;
 
     public Student(String name, int age, int stature) {
         this.name = name;
@@ -33,5 +37,13 @@ public class Student {
 
     public void setStature(int stature) {
         this.stature = stature;
+    }
+
+    public List<SpecialityEnum> getSpecialities() {
+        return specialities;
+    }
+
+    public void setSpecialities(List<SpecialityEnum> specialities) {
+        this.specialities = specialities;
     }
 }
